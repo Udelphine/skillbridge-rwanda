@@ -11,6 +11,11 @@ app.use(express.json());
 const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
 
+const challengeRoutes = require('./routes/challenges');
+const participationRoutes = require('./routes/participations');
+app.use('/api/challenges', challengeRoutes);
+app.use('/api/participations', participationRoutes);
+
 app.get('/api/health', async (req, res) => {
   try {
     const result = await pool.query('SELECT NOW()');
