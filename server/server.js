@@ -12,7 +12,9 @@ const authRoutes = require('./routes/auth');
 const challengeRoutes = require('./routes/challenges');
 const participationRoutes = require('./routes/participations');
 const submissionRoutes = require('./routes/submissions');
+const reviewRoutes = require('./routes/reviews');
 
+app.use('/api/reviews', reviewRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/challenges', challengeRoutes);
 app.use('/api/participations', participationRoutes);
