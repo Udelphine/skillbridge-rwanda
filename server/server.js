@@ -9,12 +9,14 @@ app.use(cors());
 app.use(express.json());
 
 const authRoutes = require('./routes/auth');
-app.use('/api/auth', authRoutes);
-
 const challengeRoutes = require('./routes/challenges');
 const participationRoutes = require('./routes/participations');
+const submissionRoutes = require('./routes/submissions');
+
+app.use('/api/auth', authRoutes);
 app.use('/api/challenges', challengeRoutes);
 app.use('/api/participations', participationRoutes);
+app.use('/api/submissions', submissionRoutes);
 
 app.get('/api/health', async (req, res) => {
   try {
