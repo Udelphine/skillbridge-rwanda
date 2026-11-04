@@ -4,6 +4,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Challenges from './pages/Challenges';
+import MyWork from './pages/MyWork';
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/challenges" element={<ProtectedRoute roles={['student']}><Challenges /></ProtectedRoute>} />
+        <Route path="/my-work" element={<ProtectedRoute roles={['student']}><MyWork /></ProtectedRoute>} />
       </Routes>
     </div>
   );

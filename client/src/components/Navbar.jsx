@@ -12,7 +12,16 @@ function Navbar() {
 
   return (
     <nav className="bg-green-700 text-white px-6 py-4 flex items-center justify-between">
-      <Link to="/" className="text-xl font-bold">SkillBridge Rwanda</Link>
+      <div className="flex items-center gap-6">
+        <Link to="/" className="text-xl font-bold">SkillBridge Rwanda</Link>
+
+        {user && user.role === 'student' && (
+          <>
+            <Link to="/challenges">Challenges</Link>
+            <Link to="/my-work">My Work</Link>
+          </>
+        )}
+      </div>
 
       <div className="flex items-center gap-4">
         {user ? (
