@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
+const pool = require('../db');
 
-function authenticate(req, res, next) {
+async function authenticate(req, res, next) {
   const header = req.headers.authorization;
 
   if (!header) {
@@ -10,7 +11,16 @@ function authenticate(req, res, next) {
   const token = header.split(' ')[1];
 
   try {
-    req.user = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    const result = await pool.query('SELECT id, role, status FROM users WHERE id = $1', [decoded.id]);
+    const user = result.rows[0];
+
+    if (!user || user.status !== 'active') {
+      return res.status(401).json({ message: 'This account is not active' });
+    }
+
+    req.user = { id: user.id, role: user.role };
     next();
   } catch (error) {
     res.status(401).json({ message: 'Invalid or expired token' });
