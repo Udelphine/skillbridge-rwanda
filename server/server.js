@@ -14,7 +14,13 @@ const participationRoutes = require('./routes/participations');
 const submissionRoutes = require('./routes/submissions');
 const reviewRoutes = require('./routes/reviews');
 const portfolioRoutes = require('./routes/portfolio');
+const skillRoutes = require('./routes/skills');
+const profileRoutes = require('./routes/profile');
+const adminRoutes = require('./routes/admin');
 
+app.use('/api/skills', skillRoutes);
+app.use('/api/profile', profileRoutes);
+app.use('/api/admin', adminRoutes);
 app.use('/api/portfolio', portfolioRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/auth', authRoutes);
