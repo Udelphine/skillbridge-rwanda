@@ -73,6 +73,17 @@ router.get('/assigned', authenticate, authorize('mentor'), async (req, res) => {
   }
 });
 
+router.get('/', authenticate, authorize('admin'), async (req, res) => {
+  try {
+    const result = await pool.query(
+      'SELECT submissions.*, challenges.title, users.name AS student_name FROM submissions JOIN participations ON submissions.participation_id = participations.id JOIN challenges ON participations.challenge_id = challenges.id JOIN users ON participations.student_id = users.id ORDER BY submissions.id DESC'
+    );
+    res.json(result.rows);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 router.get('/:id', authenticate, async (req, res) => {
   try {
     const result = await pool.query(
