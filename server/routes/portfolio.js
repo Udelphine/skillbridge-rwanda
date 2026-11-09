@@ -50,7 +50,7 @@ router.post('/', authenticate, authorize('student'), async (req, res) => {
 router.get('/my', authenticate, authorize('student'), async (req, res) => {
   try {
     const result = await pool.query(
-      'SELECT portfolio_items.id, portfolio_items.title, portfolio_items.description, portfolio_items.visibility, submissions.repository_url, submissions.demo_url, ' + labelSql + ' FROM portfolio_items JOIN submissions ON portfolio_items.submission_id = submissions.id WHERE portfolio_items.student_id = $1 ORDER BY portfolio_items.created_at DESC',
+      'SELECT portfolio_items.id, portfolio_items.submission_id, portfolio_items.title, portfolio_items.description, portfolio_items.visibility, submissions.repository_url, submissions.demo_url, ' + labelSql + ' FROM portfolio_items JOIN submissions ON portfolio_items.submission_id = submissions.id WHERE portfolio_items.student_id = $1 ORDER BY portfolio_items.created_at DESC',
       [req.user.id]
     );
     res.json(result.rows);
